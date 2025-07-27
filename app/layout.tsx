@@ -7,7 +7,7 @@ import { Footer } from './components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Landry X',
+  title: 'Laundry X',
   description: 'Premium laundry and dry cleaning services with pickup and delivery. Professional, reliable, and eco-friendly.',
 };
 

@@ -94,12 +94,6 @@ export function ServicesSection() {
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300"
-                  >
-                    Learn More
-                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
@@ -113,9 +107,6 @@ export function ServicesSection() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8">
-            View All Services
-          </Button>
         </motion.div>
       </div>
     </section>

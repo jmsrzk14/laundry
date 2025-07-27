@@ -44,7 +44,7 @@ export function Footer() {
               <div className="p-2 bg-blue-600 rounded-lg">
                 <Droplets className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold">CleanCycle</span>
+              <span className="text-xl font-bold">Laundry X</span>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               Professional laundry and dry cleaning services with convenient pickup and delivery. 

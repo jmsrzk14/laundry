@@ -6,7 +6,7 @@ import { Play, Star, CheckCircle } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="relative top-[-10vh] min-h-screen bg-white overflow-hidden">
+    <section className="relative top-[-5vh] min-h-screen bg-white overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-xl animate-pulse"></div>
@@ -20,7 +20,7 @@ export function HeroSection() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-white"
+            className="text-gray-900"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -33,7 +33,7 @@ export function HeroSection() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <span className="text-white/90">Trusted by 10,000+ customers</span>
+              <span className="text-gray/90">Trusted by 10,000+ customers</span>
             </motion.div>
 
             <motion.h1
@@ -50,7 +50,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl mb-8 text-white/90 leading-relaxed"
+              className="text-xl mb-8 text-gray/90 leading-relaxed"
             >
               Experience hassle-free laundry with our professional pickup, cleaning, 
               and delivery service. Save time and get perfect results every time.
@@ -62,10 +62,10 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 mb-8"
             >
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8">
+              <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700 text-lg px-8">
                 Schedule Pickup
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8">
+              <Button size="lg" variant="outline" className="bg-gray-100 border-gray-90 text-blue-600 hover:bg-gray-200 hover:text-blue-600 text-lg px-8">
                 <Play className="h-5 w-5 mr-2" />
                 Watch Demo
               </Button>
@@ -84,7 +84,7 @@ export function HeroSection() {
               ].map((feature, index) => (
                 <div key={feature} className="flex items-center gap-2">
                   <CheckCircle className="h-5 w-5 text-cyan-300" />
-                  <span className="text-white/90">{feature}</span>
+                  <span className="text-gray/90">{feature}</span>
                 </div>
               ))}
             </motion.div>
