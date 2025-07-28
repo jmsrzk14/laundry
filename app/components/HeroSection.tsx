@@ -59,21 +59,6 @@ export function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 mb-8"
-            >
-              <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700 text-lg px-8">
-                Schedule Pickup
-              </Button>
-              <Button size="lg" variant="outline" className="bg-gray-100 border-gray-90 text-blue-600 hover:bg-gray-200 hover:text-blue-600 text-lg px-8">
-                <Play className="h-5 w-5 mr-2" />
-                Watch Demo
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="grid grid-cols-1 sm:grid-cols-3 gap-4"
             >
