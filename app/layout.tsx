@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Laundry X',
   description: 'Premium laundry and dry cleaning services with pickup and delivery. Professional, reliable, and eco-friendly.',
+  icons: {
+    icon: './laundry.png',
+  },
 };
 
 export default function RootLayout({

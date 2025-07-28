@@ -27,13 +27,6 @@ export function Footer() {
     ],
   };
 
-  const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#' },
-    { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
-    { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  ];
-
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -50,18 +43,6 @@ export function Footer() {
               Professional laundry and dry cleaning services with convenient pickup and delivery. 
               Experience the difference of premium care for your garments.
             </p>
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="p-2 bg-gray-800 rounded-lg hover:bg-blue-600 transition-colors duration-300"
-                  aria-label={social.name}
-                >
-                  <social.icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Links Sections */}

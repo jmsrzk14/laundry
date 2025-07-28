@@ -42,7 +42,7 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
             >
-              Premium Laundry
+              Laundry X
               <span className="block text-cyan-300">Made Simple</span>
             </motion.h1>
 
