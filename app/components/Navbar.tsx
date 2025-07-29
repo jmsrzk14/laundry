@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { Menu, X, WashingMachine, Phone, Mail, Clock, MapPinIcon } from 'lucide-react';
+import CartModal from './ui/card-modal';
+import { Menu, X, WashingMachine, Phone, Mail, Clock, MapPinIcon, ShoppingCart } from 'lucide-react';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +29,14 @@ export function Navbar() {
     { href: '/article', label: 'Artikel' },
   ];
 
+  const [showCartModal, setShowCartModal] = useState(false);
+
   return (
     <motion.nav
       initial={{ y: -150 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`relative top-0 right-0 z-50 transition-all duration-300`}
+      className={`relative top-0 right-0 z-40 transition-all duration-300`}
     >
       <div className="mx-auto px-[2em] bg-white md:bg-blue-400 backdrop-blur-md shadow-none md:shadow-lg">
         <div className="flex items-center justify-between h-16">
@@ -56,7 +60,7 @@ export function Navbar() {
           <div className="items-center gap-4 hidden md:flex">
             <div className="flex items-center">
               <Clock size={23} color="white" />
-              <span className="text-md text-white ml-2 hidden md:inline">(+62) 822 8333 8333</span>
+              <span className="text-md text-white ml-2 hidden md:inline">Mon - Fri: 07.00 - 18.00</span>
             </div>
             <div className="flex items-center ml-6">
               <MapPinIcon size={25} color="white" />
@@ -94,9 +98,10 @@ export function Navbar() {
           </motion.div>
         )}
       </div>
-      <div className="hidden md:flex items-center gap-8 absolute top-20 left-10 z-50">
+
+      <div className="hidden md:flex items-center gap-8 absolute top-20 left-10 z-40 md:justify-between">
         <div className="hidden items-center gap-2 md:flex mr-6">
-          <div className="p-2 bg-blue-600 rounded-lg">
+          <div className="relative p-2 bg-blue-600 rounded-lg">
             <WashingMachine className="h-6 w-6 text-white" />
           </div>
           <span className="text-xl font-bold text-gray-900">Laundry X</span>
@@ -110,7 +115,11 @@ export function Navbar() {
             {item.label}
           </Link>
         ))}
+        <button onClick={() => setShowCartModal(true)} className="ml-[30em]">
+          <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
+        </button>
       </div>
+      {showCartModal && <CartModal onClose={() => setShowCartModal(false)} />}
     </motion.nav>
   );
 }
