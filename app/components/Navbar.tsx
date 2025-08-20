@@ -99,29 +99,36 @@ export function Navbar() {
         )}
       </div>
 
-      <div className="hidden md:flex items-center gap-8 absolute top-20 left-10 z-40 md:justify-between">
-        <div className="hidden items-center gap-2 md:flex mr-6">
+      <div className="hidden md:flex items-center justify-between absolute top-20 left-10 z-40 w-[95%]">
+        <div className="flex items-center gap-2">
           <div className="relative p-2 bg-blue-600 rounded-lg">
             <WashingMachine className="h-6 w-6 text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900">Laundry X</span>
+          <span className="text-xl font-bold text-gray-900 mr-6">Laundry X</span>
+
+          <div className="flex items-center gap-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
-          >
-            {item.label}
+
+        <div className="flex items-center gap-12">
+          <button onClick={() => setShowCartModal(true)}>
+            <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
+          </button>
+          <Link href="/auth/login" className="flex">
+            <User className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
           </Link>
-        ))}
-        <button onClick={() => setShowCartModal(true)} className="ml-[25em]">
-          <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
-        </button>
-        <Link href="/auth/login" className="ml-6 flex">
-          <User className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
-        </Link>
+        </div>
       </div>
+
       {showCartModal && <CartModal onClose={() => setShowCartModal(false)} />}
     </motion.nav>
   );
