@@ -134,7 +134,7 @@ const notifications = [
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 max-w-7xl mx-auto mt-5">
       {/* Welcome Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
