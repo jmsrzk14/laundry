@@ -104,9 +104,9 @@ export function Navbar() {
           <div className="relative p-2 bg-blue-600 rounded-lg">
             <WashingMachine className="h-6 w-6 text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900 mr-6">Laundry X</span>
+          <span className="text-xl font-bold text-gray-900 mr-12">Laundry X</span>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
