@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import CartModal from './ui/card-modal';
-import { Menu, X, WashingMachine, Phone, Mail, Clock, MapPinIcon, ShoppingCart } from 'lucide-react';
+import { Menu, X, WashingMachine, Phone, Mail, Clock, MapPinIcon, ShoppingCart, User } from 'lucide-react';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,9 +115,12 @@ export function Navbar() {
             {item.label}
           </Link>
         ))}
-        <button onClick={() => setShowCartModal(true)} className="ml-[30em]">
+        <button onClick={() => setShowCartModal(true)} className="ml-[25em]">
           <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
         </button>
+        <Link href="/auth/login" className="ml-6 flex">
+          <User className="h-6 w-6 text-gray-700 hover:text-blue-600 transition-colors" />
+        </Link>
       </div>
       {showCartModal && <CartModal onClose={() => setShowCartModal(false)} />}
     </motion.nav>

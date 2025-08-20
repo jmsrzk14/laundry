@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '../components/ui/card';
 import { Users, Award, Clock, Leaf } from 'lucide-react';
+import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
 
 const stats = [
   { icon: Users, label: 'Happy Customers', value: '10,000+' },
@@ -34,8 +36,9 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 pt-20">
-      <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
+      <Navbar />
+      <div className="container mx-auto px-4 py-16 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -134,6 +137,7 @@ export default function AboutPage() {
           </div>
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Shirt, Droplets, Clock, Shield, Truck, Sparkles } from 'lucide-react';
+import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
 
 const services = [
   {
@@ -38,8 +40,9 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 pt-20">
-      <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
+      <Navbar />
+      <div className="container mx-auto px-4 py-16 mt-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,7 +53,7 @@ export default function ServicesPage() {
             Our Premium Services
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            From everyday wash and fold to specialized dry cleaning, we provide comprehensive 
+            From everyday wash and fold to specialized dry cleaning, we provide comprehensive
             laundry solutions tailored to your needs.
           </p>
         </motion.div>
@@ -109,6 +112,7 @@ export default function ServicesPage() {
           </Button>
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 }
