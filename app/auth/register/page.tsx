@@ -3,14 +3,17 @@
 import { useState } from 'react';
 import axios from "axios";
 import { motion } from 'framer-motion';
+import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Checkbox } from '../../components/ui/checkbox';
 import { Eye, EyeOff, Mail, Lock, User, Phone, Droplets, WashingMachine } from 'lucide-react';
+import Swal from "sweetalert2";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,37 +26,83 @@ export default function RegisterPage() {
     subscribeNewsletter: false,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const passwordRules = {
+    upper: /[A-Z]/.test(formData.password),
+    lower: /[a-z]/.test(formData.password),
+    number: /[0-9]/.test(formData.password),
+    symbol: /[^A-Za-z0-9]/.test(formData.password),
+    length: formData.password.length >= 8 && formData.password.length <= 12,
+  };
+
+  const passwordStrength = Object.values(passwordRules).filter(Boolean).length * 20;
+  const getStrengthColor = () => {
+    if (passwordStrength <= 40) return 'bg-red-500';
+    if (passwordStrength <= 80) return 'bg-yellow-500';
+    return 'bg-green-500';
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      Swal.fire({
+        icon: "warning",
+        title: "Password Tidak Sama",
+        text: "Password dan konfirmasi password harus sama.",
+        customClass: {
+          confirmButton: "my-confirm-btn-cancel"
+        },
+        buttonsStyling: false
+      });
+      return; 
+    }
     setIsLoading(true);
 
     const payload = {
-    email: formData.email,
-    name: formData.fullName,
-    nomor_hp: formData.phone,
-    password: formData.password,
-    confirm_password: formData.confirmPassword,
-  };
+      email: formData.email,
+      name: formData.fullName,
+      nomor_hp: formData.phone,
+      password: formData.password,
+      confirm_password: formData.confirmPassword,
+    };
 
-  console.log("Payload dikirim ke API:", payload);
-
-  try {
-    const res = await axios.post(
-      "https://test-laundry-913222281919.asia-southeast2.run.app/register",
-      payload,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    try {
+      const res = await axios.post(
+        "https://test-laundry-913222281919.asia-southeast2.run.app/register",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("Registration success:", res.data);
-      alert("Account created successfully!");
-    } catch (err) {
+      await Swal.fire({
+        icon: "success",
+        title: "Registrasi Berhasil",
+        text: "Akun kamu sudah dibuat!",
+        customClass: {
+          confirmButton: "my-confirm-btn-success"
+        },
+        buttonsStyling: false
+      });
+
+      router.push("/auth/login");
+    } catch (err: any) {
       console.error("Error during registration:", err);
-      alert("Registration failed, please try again");
+
+      Swal.fire({
+        icon: "error",
+        title: "Registrasi Gagal",
+        text:
+          err.response?.data?.message ||
+          "Terjadi kesalahan, silakan coba lagi.",
+        customClass: {
+          confirmButton: "my-confirm-btn-cancel"
+        },
+        buttonsStyling: false
+      });
+
     } finally {
       setIsLoading(false);
     }
@@ -85,7 +134,7 @@ export default function RegisterPage() {
             <CardContent className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <label htmlFor="firstName" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="fullName" className="text-sm font-medium text-gray-700">
                     Full Name
                   </label>
                   <div className="relative">
@@ -102,7 +151,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="email" className=" text-sm font-medium text-gray-700">
                     Email Address
                   </label>
                   <div className="relative">
@@ -156,6 +205,37 @@ export default function RegisterPage() {
                     >
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
+                  </div>
+                  <div className="mt-2">
+                    <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full ${getStrengthColor()}`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${passwordStrength}%` }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+                    <p className="text-xs text-gray-600 mt-1">
+                      Password Strength: {passwordStrength <= 40 ? 'Weak' : passwordStrength <= 80 ? 'Medium' : 'Strong'}
+                    </p>
+                    <ul className="text-xs mt-2 grid grid-cols-2 gap-2">
+                      {[
+                        { rule: passwordRules.upper, text: 'Uppercase letter' },
+                        { rule: passwordRules.lower, text: 'Lowercase letter' },
+                        { rule: passwordRules.number, text: 'Number' },
+                        { rule: passwordRules.symbol, text: 'Symbol' },
+                        { rule: passwordRules.length, text: '8-12 characters' },
+                      ].map(({ rule, text }) => (
+                        <li
+                          key={text}
+                          className={`flex items-center gap-2 p-2 rounded-lg transition-all ${rule ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                            }`}
+                        >
+                          <span className="text-sm">{rule ? '✅' : '⬜'}</span>
+                          <span>{text}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
@@ -250,7 +330,7 @@ export default function RegisterPage() {
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Register your shop today and discover why thousands of shops trust 
+              Register your shop today and discover why thousands of shops trust
               Rinel Laundry for their laundry and dry cleaning needs.
             </p>
 

@@ -80,3 +80,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+.my-confirm-btn-cancel {
+  background-color: #d33;  
+  color: white;              
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.my-confirm-btn-cancel:hover {
+  background-color: rgb(182, 0, 0); 
+}
+
+.my-confirm-btn-success {
+  background-color: #3085d6;  
+  color: white;              
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.my-confirm-btn-success:hover {
+  background-color: #00519c; 
+}

@@ -4,13 +4,16 @@ import axios from "axios";
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Checkbox } from '../../components/ui/checkbox';
 import { Eye, EyeOff, Mail, Lock, Droplets, WashingMachine } from 'lucide-react';
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -33,11 +36,34 @@ export default function LoginPage() {
       );
 
       console.log("Login success:", res.data);
-
+      await Swal.fire({
+        icon: "success",
+        title: "Berhasil Login",
+        customClass: {
+          confirmButton: "my-confirm-btn-success"
+        },
+        buttonsStyling: false
+      });
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
-    } catch (err) {
+
+      router.push("/admin/dashboard");
+    } catch (err: any) {
+      console.error("Error during registration:", err);
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Gagal",
+        text:
+          err.response?.data?.message ||
+          "Email atau Password kamu salah",
+        customClass: {
+          confirmButton: "my-confirm-btn-cancel"
+        },
+        buttonsStyling: false
+      });
+
       console.error("Error during login:", err);
     } finally {
       setIsLoading(false);
@@ -60,12 +86,12 @@ export default function LoginPage() {
               </div>
               <span className="text-3xl font-bold text-gray-900">Laundry Rinel</span>
             </div>
-            
+
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Welcome Back to
               <span className="block text-blue-600">Laundry Rinel</span>
             </h1>
-            
+
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Enjoy your laundry business by registering your laundry shop at Laundry Rinel
             </p>
@@ -111,7 +137,7 @@ export default function LoginPage() {
                 Enter your credentials to access your account
               </CardDescription>
             </CardHeader>
-            
+
             <CardContent className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
@@ -124,7 +150,7 @@ export default function LoginPage() {
                       id="email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="pl-10 h-12"
                       required
                     />
@@ -141,7 +167,7 @@ export default function LoginPage() {
                       id="password"
                       type={showPassword ? 'text' : 'password'}
                       value={formData.password}
-                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       className="pl-10 pr-10 h-12"
                       required
                     />
@@ -160,7 +186,7 @@ export default function LoginPage() {
                     <Checkbox
                       id="remember"
                       checked={formData.rememberMe}
-                      onCheckedChange={(checked) => setFormData({...formData, rememberMe: checked as boolean})}
+                      onCheckedChange={(checked) => setFormData({ ...formData, rememberMe: checked as boolean })}
                     />
                     <label htmlFor="remember" className="text-sm text-gray-700">
                       Remember me
