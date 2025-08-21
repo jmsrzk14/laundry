@@ -41,10 +41,11 @@ export default function RegisterPage() {
 
     try {
       const body = new FormData();
-      body.append("name", formData.fullName);
       body.append("email", formData.email);
+      body.append("name", formData.fullName);
       body.append("nomor_hp", formData.phone);
       body.append("password", formData.password);
+      body.append("confirm_password", formData.confirmPassword);
 
       const res = await axios.post(
         "https://test-laundry-913222281919.asia-southeast2.run.app/register",
