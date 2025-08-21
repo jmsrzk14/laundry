@@ -26,36 +26,28 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-
-    if (!formData.agreeToTerms) {
-      alert("Please agree to the terms and conditions");
-      return;
-    }
-
     setIsLoading(true);
 
-    try {
-      const body = new FormData();
-      body.append("email", formData.email);
-      body.append("name", formData.fullName);
-      body.append("nomor_hp", formData.phone);
-      body.append("password", formData.password);
-      body.append("confirm_password", formData.confirmPassword);
+    const payload = {
+    email: formData.email,
+    name: formData.fullName,
+    nomor_hp: formData.phone,
+    password: formData.password,
+    confirm_password: formData.confirmPassword,
+  };
 
-      const res = await axios.post(
-        "https://test-laundry-913222281919.asia-southeast2.run.app/register",
-        body,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+  console.log("Payload dikirim ke API:", payload);
+
+  try {
+    const res = await axios.post(
+      "https://test-laundry-913222281919.asia-southeast2.run.app/register",
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
 
       console.log("Registration success:", res.data);
       alert("Account created successfully!");
