@@ -36,19 +36,40 @@ export default function LoginPage() {
       );
 
       console.log("Login success:", res.data);
-      await Swal.fire({
-        icon: "success",
-        title: "Berhasil Login",
-        customClass: {
-          confirmButton: "my-confirm-btn-success"
-        },
-        buttonsStyling: false
-      });
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+      const { token, role } = res.data.data || {};
+
+      if (!token || !role) {
+        throw new Error("Token atau role tidak ditemukan dalam response API");
       }
 
-      router.push("/admin/dashboard");
+      if (role === "pengusaha" || role === "super_admin") {
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+
+        await Swal.fire({
+          icon: "success",
+          title: "Berhasil Login",
+          customClass: {
+            confirmButton: "my-confirm-btn-success"
+          },
+          buttonsStyling: false
+        });
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+        }
+
+        router.push("/admin/dashboard");
+      } else {
+        await Swal.fire({
+          icon: "error",
+          title: "Login Ditolak",
+          text: "Hanya pengusaha atau super admin yang dapat login",
+          customClass: {
+            confirmButton: "my-confirm-btn-cancel"
+          },
+          buttonsStyling: false
+        });
+      }
     } catch (err: any) {
       console.error("Error during registration:", err);
 
