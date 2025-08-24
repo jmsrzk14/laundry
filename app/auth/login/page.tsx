@@ -37,6 +37,7 @@ export default function LoginPage() {
 
       console.log("Login success:", res.data);
       const { token, role } = res.data.data || {};
+      console.log(token, role);
 
       if (!token || !role) {
         throw new Error("Token atau role tidak ditemukan dalam response API");
@@ -54,8 +55,8 @@ export default function LoginPage() {
           },
           buttonsStyling: false
         });
-        if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
+        if (token) {
+          localStorage.setItem("token", token);
         }
 
         router.push("/admin/dashboard");
@@ -63,7 +64,7 @@ export default function LoginPage() {
         await Swal.fire({
           icon: "error",
           title: "Login Ditolak",
-          text: "Hanya pengusaha atau super admin yang dapat login",
+          text: "Hanya pengusaha yang dapat login",
           customClass: {
             confirmButton: "my-confirm-btn-cancel"
           },
