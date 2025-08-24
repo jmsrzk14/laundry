@@ -35,7 +35,7 @@ export default function LoginPage() {
         }
       );
 
-      console.log("Login success:", res.data);
+      console.log("Login success:", res.data.data);
       const { token, role } = res.data.data || {};
       console.log(token, role);
 
