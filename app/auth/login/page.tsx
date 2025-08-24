@@ -37,13 +37,12 @@ export default function LoginPage() {
 
       console.log("Login success:", res.data.data);
       const { token, role } = res.data.data || {};
-      console.log(token, role);
 
       if (!token || !role) {
         throw new Error("Token atau role tidak ditemukan dalam response API");
       }
 
-      if (role === "pengusaha" || role === "super_admin") {
+      if (role === "pengusaha" || role === "super admin") {
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
 
